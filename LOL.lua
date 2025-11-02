@@ -42,7 +42,7 @@ UICorner_2.Parent = TextButton
 
 -- Scripts:
 
-local function IVYUR_fake_script() -- TextButton.LocalScript 
+local function APGWWH_fake_script() -- TextButton.LocalScript 
 	local script = Instance.new('LocalScript', TextButton)
 
 	-- Place this LocalScript inside a TextButton in a ScreenGui
@@ -72,25 +72,53 @@ local function IVYUR_fake_script() -- TextButton.LocalScript
 	button.MouseButton1Click:Connect(toggleButton)
 	
 end
-coroutine.wrap(IVYUR_fake_script)()
-local function XOMZY_fake_script() -- ScreenGui.LocalScript 
-	local script = Instance.new('LocalScript', ScreenGui)
+coroutine.wrap(APGWWH_fake_script)()
+local function KXIOUZU_fake_script() -- Frame.LocalScript 
+	local script = Instance.new('LocalScript', Frame)
 
+	-- Place this LocalScript inside the Frame you want to drag
+	local frame = script.Parent  -- The GUI frame you want to drag
 	local player = game.Players.LocalPlayer
 	local mouse = player:GetMouse()
 	
-	mouse.Button1Down:Connect(function()
-		script.Parent.Holding.Value = true
-	end)
+	local dragging = false
+	local dragInput, mousePos, framePos
 	
-	mouse.Button1Up:Connect(function()
-		script.Parent.Holding.Value = false
-	end)
+	local function update(input)
+		local delta = input.Position - mousePos
+		frame.Position = UDim2.new(
+			framePos.X.Scale,
+			framePos.X.Offset + delta.X,
+			framePos.Y.Scale,
+			framePos.Y.Offset + delta.Y
+		)
+	end
 	
-	mouse.Move:Connect(function()
-		if script.Parent.Holding.Value == true then
-			script.Parent.Frame.Position = UDim2.new(0,mouse.X,0,mouse.Y)
+	frame.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			mousePos = input.Position
+			framePos = frame.Position
+	
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
 		end
 	end)
+	
+	frame.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	game:GetService("UserInputService").InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+	
 end
-coroutine.wrap(XOMZY_fake_script)()
+coroutine.wrap(KXIOUZU_fake_script)()
