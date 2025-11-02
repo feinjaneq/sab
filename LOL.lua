@@ -42,38 +42,19 @@ UICorner_2.Parent = TextButton
 
 -- Scripts:
 
-local function APGWWH_fake_script() -- TextButton.LocalScript 
+local function FUHTQL_fake_script() -- TextButton.LocalScript 
 	local script = Instance.new('LocalScript', TextButton)
 
-	-- Place this LocalScript inside a TextButton in a ScreenGui
-	
 	local button = script.Parent
-	local isOn = false  -- Initial state
+	button.Text = "OFF"
 	
-	-- Function to toggle button
-	local function toggleButton()
-		if not isOn then
-			-- Run your loadstring code here
-			local success, err = pcall(function()
-				loadstring("https://raw.githubusercontent.com/iw929wiwiw/Protector-/refs/heads/main/Secret%20Finder")()  -- Replace this string with your code
-			end)
-			if not success then
-				warn("Error running loadstring: "..err)
-			end
-			button.Text = "ON"
-			isOn = true
-		else
-			button.Text = "OFF"
-			isOn = false
-		end
-	end
-	
-	button.Text = "OFF"  -- Initial text
-	button.MouseButton1Click:Connect(toggleButton)
-	
+	button.MouseButton1Click:Connect(function()
+		button.Text = "ON"
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/iw929wiwiw/Protector-/refs/heads/main/Secret%20Finder"))()
+	end)
 end
-coroutine.wrap(APGWWH_fake_script)()
-local function KXIOUZU_fake_script() -- Frame.LocalScript 
+coroutine.wrap(FUHTQL_fake_script)()
+local function DDZLMZ_fake_script() -- Frame.LocalScript 
 	local script = Instance.new('LocalScript', Frame)
 
 	-- Place this LocalScript inside the Frame you want to drag
@@ -121,4 +102,4 @@ local function KXIOUZU_fake_script() -- Frame.LocalScript
 	end)
 	
 end
-coroutine.wrap(KXIOUZU_fake_script)()
+coroutine.wrap(DDZLMZ_fake_script)()
