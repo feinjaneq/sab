@@ -1,1 +1,8 @@
-{}
+{
+  "rewrites": [
+    {
+      "source": "/files/v4/loaders/:filename",
+      "destination": "/api/loader?script=:filename"
+    }
+  ]
+}
